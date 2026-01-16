@@ -49,6 +49,11 @@ func (r *Router) RouteConnection(ctx context.Context, conn net.Conn, metadata ad
 }
 
 func (r *Router) RouteConnectionEx(ctx context.Context, conn net.Conn, metadata adapter.InboundContext, onClose N.CloseHandlerFunc) {
+	// 添加路由前日志  
+	r.logger.InfoContext(ctx, "before route: Addr=", metadata.Destination.Addr,   
+    	" Fqdn=", metadata.Destination.Fqdn, " Inbound=", metadata.Inbound,   
+        	" Network=", metadata.Network)
+	// 添加路由前日志
 	err := r.routeConnection(ctx, conn, metadata, onClose)
 	if err != nil {
 		N.CloseOnHandshakeFailure(conn, onClose, err)
