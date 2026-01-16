@@ -826,6 +826,11 @@ func (r *Router) actionSniff(
 			} else {
 				r.logger.DebugContext(ctx, "sniffed packet protocol: ", metadata.Protocol)
 			}
+			//UDP包嗅探的相同修改
+			if metadata.Domain != "" {  
+    			r.logger.InfoContext(ctx, "after sniff: Domain=", metadata.Domain,   
+        		" Fqdn=", metadata.Destination.Fqdn, " Addr=", metadata.Destination.Addr)  
+			}
 		}
 	}
 	return
