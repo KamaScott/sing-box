@@ -686,6 +686,12 @@ func (r *Router) actionSniff(
 			} else {
 				r.logger.DebugContext(ctx, "sniffed protocol: ", metadata.Protocol)
 			}
+			// 添加新的日志:探后打印元数据
+			if metadata.Domain != "" {
+				r.logger.InfoContext(ctx, "after sniff: Domain=", metadata.Domain,
+					" Fqdn=", metadata.Destination.Fqdn, " Addr=", metadata.Destination.Addr)
+			}
+			
 		}
 		if !sniffBuffer.IsEmpty() {
 			buffer = sniffBuffer
